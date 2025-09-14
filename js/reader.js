@@ -1,7 +1,8 @@
-// js/reader.js
+import { USER_MESSAGES } from "../lang/messages/en/user.js";
+
 const MESSAGES = {
-  LAST_RETRIEVED: "Last retrieved:",
-  BACK: "Back to Home"
+  LAST_RETRIEVED: USER_MESSAGES.lastRetrieved,
+  BACK: USER_MESSAGES.backToHomeButton
 };
 
 const displayNotes = () => {
@@ -15,8 +16,10 @@ const displayNotes = () => {
       notesContainer.appendChild(p);
   });
 
-  document.getElementById('timestamp').textContent = `${MESSAGES.LAST_RETRIEVED} ${new Date().toLocaleTimeString()}`;
+  const timestamp = new Date().toLocaleTimeString();
+  document.getElementById('timestamp').textContent = USER_MESSAGES.lastRetrieved(timestamp);
 };
+
 
 // Listen for changes from other tabs
 window.addEventListener('storage', (e) => {
@@ -31,3 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Update every 2 seconds
   setInterval(displayNotes, 2000);
 });
+
+
+document.querySelector('a button').textContent = USER_MESSAGES.backToHomeButton;

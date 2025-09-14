@@ -1,9 +1,10 @@
-// lang/messages/en/user.js
+import { USER_MESSAGES } from "../lang/messages/en/user.js";
+
 const MESSAGES = {
-  LAST_SAVED: "Last saved:",
-  ADD_NOTE: "Add Note",
-  REMOVE_NOTE: "Remove",
-  BACK: "Back to Home"
+  LAST_SAVED: USER_MESSAGES.lastSaved,
+  ADD_NOTE: USER_MESSAGES.addNoteButton,
+  REMOVE_NOTE: USER_MESSAGES.removeNoteButton,
+  BACK: USER_MESSAGES.backToHomeButton
 };
 
 // js/writer.js
@@ -43,7 +44,8 @@ let notes = [];
 const saveNotes = () => {
   const noteContents = notes.map(note => note.content);
   localStorage.setItem('notes', JSON.stringify(noteContents));
-  document.getElementById('timestamp').textContent = `${MESSAGES.LAST_SAVED} ${new Date().toLocaleTimeString()}`;
+  const timestamp = new Date().toLocaleTimeString();
+  document.getElementById('timestamp').textContent = USER_MESSAGES.lastSaved(timestamp);
 };
 
 // Function to retrieve notes from localStorage and populate the page
@@ -63,6 +65,8 @@ const addNote = () => {
 document.addEventListener('DOMContentLoaded', () => {
   loadNotes();
   document.getElementById('add-button').addEventListener('click', addNote);
+  document.getElementById('add-button').textContent = USER_MESSAGES.addNoteButton;
+  document.querySelector('a button').textContent = USER_MESSAGES.backToHomeButton;
   // Save notes every 2 seconds
   setInterval(saveNotes, 2000);
 });
@@ -73,3 +77,5 @@ window.addEventListener('storage', (e) => {
       loadNotes();
   }
 });
+
+
